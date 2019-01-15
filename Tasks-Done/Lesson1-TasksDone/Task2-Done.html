@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="ToDoApp">
+<head>
+    <title>ToDo List (Task2)</title>
+    <script src="../Libraries/angular.js"></script>
+    <link href="../Libraries/bootstrap.css" rel="stylesheet" />
+    <link href="../Libraries/bootstrap-theme.css" rel="stylesheet" />
+    <script src="todo.js"></script>
+    <script>
+        var app = angular.module("ToDoApp", []);
+
+        app.controller("ToDoCtrl", function ($scope) {
+            $scope.tasks = todoModel.read();
+            $scope.newTask = null;
+
+            $scope.addButtonClick = function () {
+                todoModel.addItem($scope.newTask.name, $scope.newTask.duedate.toLocaleDateString(), $scope.newTask.description, $scope.newTask.completed);
+                todoModel.save();
+            }
+        });
+    </script>
+
+</head>
+<body ng-controller="ToDoCtrl">
+
+    <div class="container">
+
+        <h3>ToDo List</h3>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Date</th>
+                    <th>completed</th>
+                </tr>
+            </thead>
+            <tr ng-repeat="task in tasks">
+                <td>{{task.name}}</td>
+                <td>{{task.description}}</td>
+                <td>{{task.duedate}}</td>
+                <td>{{task.completed}}</td>
+            </tr>
+        </table>
+
+        <div>
+            <form class="form-horizontal">
+                <div class="form-group row">
+                    <label for="input1" class="col-sm-2 control-label">Name</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="taskName" placeholder="Task Name" ng-model="newTask.name">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="input2" class="col-sm-2 control-label">Due Date</label>
+                    <div class="col-sm-10">
+                        <input type="date" class="form-control" id="dueDate" ng-model="newTask.duedate">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="input2" class="col-sm-2 control-label">Description</label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control" ng-model="newTask.description"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="input2" class="col-sm-2 control-label">Completed</label>
+                    <div class="col-sm-1">
+                        <input type="checkbox" class="checkbox" ng-model="newTask.completed" />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-default" ng-click="addButtonClick()">Add</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

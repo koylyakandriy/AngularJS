@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="Task1App">
+<head>
+    <title>Task 1</title>
+
+    <script src="../Libraries/angular.js"></script>
+    <link href="../Libraries/bootstrap.css" rel="stylesheet" />
+    <link href="../Libraries/bootstrap-theme.css" rel="stylesheet" />
+    <script src="model.js"></script>
+
+    <script>
+        var task1App = angular.module("Task1App", []);
+
+        var task1AppCtrl = task1App.controller("task1AppCtrl", function ($scope) {
+            $scope.news = model;
+        });
+    </script>
+
+</head>
+<body>
+    <div class="container" style="margin-top:20px;" ng-controller="task1AppCtrl">
+
+        <div class="panel panel-default">
+
+            <h1 class="panel-heading">ITVDN News</h1>
+            
+
+            <div class="panel-body">
+                <article class="well" ng-repeat="item in news">
+                    <h3>{{item.title}}</h3>
+                    <h6>{{item.published}}</h6>
+                    <p>{{item.description}}</p>
+                    <a href="{{item.link}}" class="btn btn-primary">Читать дальше</a>
+                </article>
+            </div>
+
+            <footer class="panel-footer">
+                <a href="http://itvdn.com/ru/news">Все новости</a>
+            </footer>
+
+        </div>
+
+    </div>
+</body>
+</html>
